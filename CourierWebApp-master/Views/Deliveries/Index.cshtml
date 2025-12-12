@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CourierWebApp.Models.Delivery>
+
+@{
+    ViewData["Title"] = "Teslimatlar";
+}
+
+<h1>Teslimatlar</h1>
+
+<p>Yeni bir teslimat oluşturmak için öncelikle en az bir müşteri, kargo kalemi ve birim oluşturmanız gerekir.</p>
+
+<div class="d-flex flex-wrap gap-2 mb-3 justify-content-start">
+    <a class="btn text-white d-flex align-items-center"
+       asp-controller="Customers" asp-action="Index"
+       style="background-color: #f4b8da; padding: 0.5rem 1rem;">
+        <i class="bi bi-people me-2"></i> Yeni müşteri oluştur
+    </a>
+    <a class="btn text-white d-flex align-items-center"
+       asp-controller="Items" asp-action="Index"
+       style="background-color: #f9cee7; padding: 0.5rem 1rem;">
+        <i class="bi bi-box-seam me-2"></i> Yeni kargo kalemi oluştur
+    </a>
+    <a class="btn text-white d-flex align-items-center"
+       asp-controller="Units" asp-action="Index"
+       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
+        <i class="bi bi-rulers me-2"></i> Yeni birim oluştur
+    </a>
+</div>
+
+<div class="d-flex flex-wrap gap-2 mb-4 justify-content-start">
+    <a class="btn text-white d-flex align-items-center"
+       asp-action="Create"
+       style="background-color: #e68bbe; padding: 0.5rem 1rem;">
+        <i class="bi bi-plus-circle me-2"></i> Yeni teslimat oluştur
+    </a>
+    <a class="btn text-white d-flex align-items-center"
+       asp-action="ShowSearchForm"
+       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
+        <i class="bi bi-search me-2"></i> Teslimatları ara
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Customer)</th>
+            <th>@Html.DisplayNameFor(model => model.Item)</th>
+            <th>@Html.DisplayNameFor(model => model.Item.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.Unit)</th>
+            <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Date)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Customer.CustomerEmail)</td>
+                <td>@Html.DisplayFor(modelItem => item.Item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.Unit.Unit)</td>
+                <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                <td>
+                    <a class="btn btn-sm d-flex align-items-center me-1"
+                       asp-action="Edit" asp-route-id="@item.Id"
+                       style="background-color: #f4b8da; color: white;">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a class="btn btn-sm d-flex align-items-center me-1"
+                       asp-action="Details" asp-route-id="@item.Id"
+                       style="background-color: #eea1cd; color: white;">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a class="btn btn-sm d-flex align-items-center"
+                       asp-action="Delete" asp-route-id="@item.Id"
+                       style="background-color: #e68bbe; color: white;">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

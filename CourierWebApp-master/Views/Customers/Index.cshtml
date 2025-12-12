@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CourierWebApp.Models.Customer>
+
+@{
+    ViewData["Title"] = "Müşteriler";
+}
+
+<h1>Müşteriler</h1>
+
+<p>Yeni bir teslimat oluşturmak için öncelikle bir müşteri oluşturmanız gerekir.</p>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn text-white d-flex align-items-center"
+       asp-action="Create"
+       style="background-color: #e68bbe; padding: 0.5rem 1rem;">
+        <i class="bi bi-person-plus me-2"></i> Yeni müşteri oluştur
+    </a>
+
+    <a class="btn text-white d-flex align-items-center"
+       asp-controller="Deliveries" asp-action="Index"
+       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
+        <i class "bi bi-truck me-2"></i> Teslimatlara dön
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Müşteri Adı</th>
+            <th>E-posta</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
+                <td>@Html.DisplayFor(modelItem => item.CustomerEmail)</td>
+                <td>
+                    <a class="btn btn-sm d-flex align-items-center me-1"
+                       asp-action="Edit" asp-route-id="@item.CustomerId"
+                       style="background-color: #f4b8da; color: white;">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a class="btn btn-sm d-flex align-items-center me-1"
+                       asp-action="Details" asp-route-id="@item.CustomerId"
+                       style="background-color: #eea1cd; color: white;">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a class="btn btn-sm d-flex align-items-center"
+                       asp-action="Delete" asp-route-id="@item.CustomerId"
+                       style="background-color: #e68bbe; color: white;">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+﻿@model CourierWebApp.Models.Units
+
+@{
+    ViewData["Title"] = "Detaylar";
+}
+
+<h1>Detaylar</h1>
+
+<div>
+    <h4>Birim</h4>
+    <hr />
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2 fw-bold">Birim</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Unit)</dd>
+    </dl>
+</div>
+
+<div class="mt-4 d-flex gap-2 flex-wrap">
+    <a asp-action="Edit" asp-route-id="@Model.UnitId"
+       class="btn text-white d-flex align-items-center"
+       style="background-color: #f4b8da; padding: 0.5rem 1rem;">
+        <i class="bi bi-pencil me-2"></i> Düzenle
+    </a>
+    <a asp-action="Index"
+       class="btn text-white d-flex align-items-center"
+       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
+        <i class="bi bi-arrow-left me-2"></i> Listeye Dön
+    </a>
+</div>

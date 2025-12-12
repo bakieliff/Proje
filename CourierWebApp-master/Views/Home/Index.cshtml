@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+    var isAuth = User.Identity.IsAuthenticated;
+}
+
+<div class="text-center">
+    <h1 class="display-4 main-header">DeliverMate Lojistik</h1>
+    <h3>Merhaba, @(isAuth? User.Identity.Name : "misafir")</h3>
+    @if (!isAuth)
+    {
+        <p class="mb-4">Sisteme erişmeden önce giriş yapmanız veya kayıt olmanız gerekir.</p>
+    }
+    else
+    {
+        <p class="mb-4">Teslimatları, müşterileri ve kargo kalemlerini yönetmek için panonuzu keşfedin.</p>
+    }
+
+    <div class="btns-container d-flex flex-wrap justify-content-center gap-2">
+        @if (isAuth)
+        {
+            <a class="btn text-white d-flex align-items-center"
+               asp-area="" asp-controller="Deliveries" asp-action="Index"
+               style="background-color: #e68bbe; padding: 0.5rem 1rem;">
+                <i class="bi bi-truck me-2"></i> Teslimatlar
+            </a>
+            <a class="btn text-white d-flex align-items-center"
+               asp-area="" asp-controller="Units" asp-action="Index"
+               style="background-color: #eea1cd; padding: 0.5rem 1rem;">
+                <i class="bi bi-rulers me-2"></i> Birimler
+            </a>
+            <a class="btn text-white d-flex align-items-center"
+               asp-area="" asp-controller="Customers" asp-action="Index"
+               style="background-color: #f4b8da; padding: 0.5rem 1rem;">
+                <i class="bi bi-people me-2"></i> Müşteriler
+            </a>
+            <a class="btn text-white d-flex align-items-center"
+               asp-area="" asp-controller="Items" asp-action="Index"
+               style="background-color: #f9cee7; padding: 0.5rem 1rem;">
+                <i class="bi bi-box-seam me-2"></i> Kargo Kalemleri
+            </a>
+        }
+        else
+        {
+            <a class="btn text-white d-flex align-items-center"
+               href="/Identity/Account/Login"
+               style="background-color: #f4b8da; padding: 0.5rem 1rem;">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Giriş Yap
+            </a>
+            <a class="btn text-white d-flex align-items-center"
+               href="/Identity/Account/Register"
+               style="background-color: #eea1cd; padding: 0.5rem 1rem;">
+                <i class="bi bi-person-plus me-2"></i> Kayıt Ol
+            </a>
+        }
+    </div>
+
+    <div class="image-container mt-4">
+        <img class="courier-img" src="courier.svg" alt="Kurye" />
+    </div>
+</div>

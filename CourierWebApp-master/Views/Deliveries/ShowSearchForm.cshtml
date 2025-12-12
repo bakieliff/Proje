@@ -1,0 +1,21 @@
+﻿<h2>Teslimatları Ara</h2>
+
+<p>Bir teslimatı, kargo kaleminin adına veya açıklamasına göre arayabilirsiniz.</p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ShowSearchResults">
+            <div class="form-group">
+                <label for="SearchPhrase" class="control-label">Arama Terimi</label>
+                <input name="SearchPhrase" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="🔍 Ara" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Teslimatlara Dön</a>
+</div>
