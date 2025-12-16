@@ -4,54 +4,190 @@
     ViewData["Title"] = "Birimler";
 }
 
-<h1>Birimler</h1>
+<div class="glass-page container py-4">
 
-<p>Yeni bir teslimat oluşturmak için öncelikle bir birim oluşturmanız gerekir.</p>
+    <!-- HEADER -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <h1 class="fw-bold page-title mb-1">Birimler</h1>
+            <p class="text-muted mb-0">
+                Yeni bir teslimat oluşturmak için öncelikle bir birim oluşturmanız gerekir.
+            </p>
+        </div>
 
-<div class="d-flex flex-wrap gap-2 mb-4">
-    <a class="btn text-white d-flex align-items-center"
-       asp-action="Create"
-       style="background-color: #e68bbe; padding: 0.5rem 1rem;">
-        <i class="bi bi-rulers me-2"></i> Yeni birim oluştur
-    </a>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="glass-btn primary"
+               asp-action="Create">
+                <i class="bi bi-rulers"></i>
+                <span>Yeni Birim</span>
+            </a>
 
-    <a class="btn text-white d-flex align-items-center"
-       asp-controller="Deliveries" asp-action="Index"
-       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-        <i class="bi bi-truck me-2"></i> Teslimatlara dön
-    </a>
+            <a class="glass-btn secondary"
+               asp-controller="Deliveries"
+               asp-action="Index">
+                <i class="bi bi-truck"></i>
+                <span>Teslimatlar</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-glass">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Birim</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-medium">@item.Unit</td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+
+                                <a class="icon-btn edit"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.UnitId"
+                                   title="Düzenle">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a class="icon-btn view"
+                                   asp-action="Details"
+                                   asp-route-id="@item.UnitId"
+                                   title="Detaylar">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a class="icon-btn delete"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.UnitId"
+                                   title="Sil">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Birim</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Unit)</td>
-                <td>
-                    <a class="btn btn-sm d-flex align-items-center me-1"
-                       asp-action="Edit" asp-route-id="@item.UnitId"
-                       style="background-color: #f4b8da; color: white;">
-                        <i class="bi bi-pencil"></i>
-                    </a>
-                    <a class="btn btn-sm d-flex align-items-center me-1"
-                       asp-action="Details" asp-route-id="@item.UnitId"
-                       style="background-color: #eea1cd; color: white;">
-                        <i class="bi bi-eye"></i>
-                    </a>
-                    <a class="btn btn-sm d-flex align-items-center"
-                       asp-action="Delete" asp-route-id="@item.UnitId"
-                       style="background-color: #e68bbe; color: white;">
-                        <i class="bi bi-trash"></i>
-                    </a>
-                </td>
-            </tr>
+<style>
+    /* ===== PAGE GLASS ===== */
+    .glass-page {
+        border-radius: 1.6rem;
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(230,139,190,0.25);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    }
+
+    /* ===== TITLES ===== */
+    .page-title {
+        background: linear-gradient(90deg, #e68bbe, #eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== GLASS BUTTONS ===== */
+    .glass-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        white-space: nowrap;
+    }
+
+        .glass-btn i {
+            font-size: 1.2rem;
         }
-    </tbody>
-</table>
+
+        .glass-btn.primary {
+            background: #e68bbe;
+            color: #fff;
+        }
+
+        .glass-btn.secondary {
+            background: #eea1cd;
+            color: #fff;
+        }
+
+        .glass-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(230,139,190,0.4);
+        }
+
+    /* ===== TABLE GLASS ===== */
+    .table-glass {
+        border-radius: 1.2rem;
+        overflow: hidden;
+        background: rgba(255,255,255,0.65);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(230,139,190,0.2);
+    }
+
+    .table thead {
+        background: rgba(230,139,190,0.15);
+    }
+
+    .table th {
+        border-bottom: none;
+        font-weight: 600;
+    }
+
+    .table td {
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* ===== ICON ACTION BUTTONS ===== */
+    .icon-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .icon-btn i {
+            font-size: 1.1rem;
+        }
+
+        .icon-btn.edit {
+            background: #f4b8da;
+        }
+
+        .icon-btn.view {
+            background: #eea1cd;
+        }
+
+        .icon-btn.delete {
+            background: #e68bbe;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+
+    /* ===== MOBILE ===== */
+    @@media (max-width: 576px) {
+        .page-title {
+            font-size: 1.8rem;
+        }
+    }
+</style>

@@ -1,0 +1,116 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="auth-page">
+    <div class="auth-glass">
+
+        <h1 class="auth-title">Giriş Yap</h1>
+        <p class="auth-sub">Hesabına giriş yap</p>
+
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control glass-input" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control glass-input" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="Input.RememberMe" class="form-check-input" />
+                <label asp-for="Input.RememberMe" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="glass-btn">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Giriş Yap</span>
+            </button>
+
+            <div class="auth-links">
+                <a asp-page="./ForgotPassword">Şifremi unuttum</a> ·
+                <a asp-page="./Register">Kayıt Ol</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .auth-page {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .auth-glass {
+        width: 100%;
+        max-width: 420px;
+        padding: 2.2rem;
+        border-radius: 1.6rem;
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(230,139,190,0.25);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    }
+
+    .auth-title {
+        text-align: center;
+        background: linear-gradient(90deg, #e68bbe, #eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+
+    .auth-sub {
+        text-align: center;
+        color: #777;
+        margin-bottom: 1.5rem;
+    }
+
+    .glass-input {
+        border-radius: 0.8rem;
+        border: 1px solid rgba(230,139,190,0.3);
+    }
+
+    .glass-btn {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 0.9rem;
+        background: #e68bbe;
+        color: white;
+        border: none;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s ease;
+    }
+
+        .glass-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(230,139,190,0.4);
+        }
+
+    .auth-links {
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+        .auth-links a {
+            color: #e68bbe;
+            text-decoration: none;
+        }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

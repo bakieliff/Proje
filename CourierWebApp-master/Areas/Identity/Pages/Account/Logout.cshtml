@@ -1,0 +1,73 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Çıkış Yap";
+}
+
+<div class="auth-page">
+    <div class="auth-glass text-center">
+
+        <h1 class="auth-title">Çıkış Yap</h1>
+        <p class="auth-sub">Oturumdan çıkmak üzeresin</p>
+
+        <form method="post"
+              asp-area="Identity"
+              asp-page="/Account/Logout"
+              asp-route-returnUrl="@Url.Page("/", new { area = "" })">
+
+            <button type="submit" class="glass-btn danger">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Çıkış Yap</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .auth-page {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .auth-glass {
+        max-width: 420px;
+        width: 100%;
+        padding: 2.2rem;
+        border-radius: 1.6rem;
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(230,139,190,0.25);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    }
+
+    .auth-title {
+        font-weight: 700;
+        background: linear-gradient(90deg,#e68bbe,#eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .auth-sub {
+        color: #777;
+        margin-bottom: 1.5rem;
+    }
+
+    .glass-btn {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 0.9rem;
+        background: #f28bb2;
+        color: white;
+        border: none;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .glass-btn:hover {
+            box-shadow: 0 12px 25px rgba(242,139,178,0.4);
+        }
+</style>

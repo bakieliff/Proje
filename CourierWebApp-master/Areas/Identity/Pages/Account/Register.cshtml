@@ -1,0 +1,98 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="auth-page">
+    <div class="auth-glass">
+
+        <h1 class="auth-title">Kayıt Ol</h1>
+        <p class="auth-sub">Yeni bir hesap oluştur</p>
+
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control glass-input" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control glass-input" />
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control glass-input" />
+            </div>
+
+            <button type="submit" class="glass-btn">
+                <i class="bi bi-person-plus"></i>
+                <span>Kayıt Ol</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* SAME STYLE – LOCAL ONLY */
+    .auth-page {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .auth-glass {
+        max-width: 420px;
+        width: 100%;
+        padding: 2.2rem;
+        border-radius: 1.6rem;
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(230,139,190,0.25);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    }
+
+    .auth-title {
+        text-align: center;
+        font-weight: 700;
+        background: linear-gradient(90deg,#e68bbe,#eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .auth-sub {
+        text-align: center;
+        color: #777;
+        margin-bottom: 1.5rem;
+    }
+
+    .glass-input {
+        border-radius: 0.8rem;
+        border: 1px solid rgba(230,139,190,0.3);
+    }
+
+    .glass-btn {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 0.9rem;
+        background: #e68bbe;
+        color: white;
+        border: none;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .glass-btn:hover {
+            box-shadow: 0 12px 25px rgba(230,139,190,0.4);
+        }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

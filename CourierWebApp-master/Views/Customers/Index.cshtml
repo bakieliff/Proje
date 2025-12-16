@@ -4,56 +4,171 @@
     ViewData["Title"] = "Müşteriler";
 }
 
-<h1>Müşteriler</h1>
+<div class="customers-page">
 
-<p>Yeni bir teslimat oluşturmak için öncelikle bir müşteri oluşturmanız gerekir.</p>
+    <!-- HEADER -->
+    <div class="page-header mb-4">
+        <h1 class="page-title">Müşteriler</h1>
+        <p class="page-sub">
+            Yeni bir teslimat oluşturmak için öncelikle bir müşteri oluşturmanız gerekir.
+        </p>
+    </div>
 
-<div class="d-flex flex-wrap gap-2 mb-4">
-    <a class="btn text-white d-flex align-items-center"
-       asp-action="Create"
-       style="background-color: #e68bbe; padding: 0.5rem 1rem;">
-        <i class="bi bi-person-plus me-2"></i> Yeni müşteri oluştur
-    </a>
+    <!-- ACTION BUTTONS -->
+    <div class="d-flex flex-wrap gap-3 mb-4">
+        <a asp-action="Create" class="action-btn primary">
+            <i class="bi bi-person-plus"></i>
+            <span>Yeni müşteri oluştur</span>
+        </a>
 
-    <a class="btn text-white d-flex align-items-center"
-       asp-controller="Deliveries" asp-action="Index"
-       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-        <i class "bi bi-truck me-2"></i> Teslimatlara dön
-    </a>
+        <a asp-controller="Deliveries" asp-action="Index" class="action-btn secondary">
+            <i class="bi bi-truck"></i>
+            <span>Teslimatlara dön</span>
+        </a>
+    </div>
+
+    <!-- TABLE WRAPPER (SOFT GLASS) -->
+    <div class="table-surface">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Müşteri Adı</th>
+                    <th>E-posta</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CustomerName</td>
+                        <td>@item.CustomerEmail</td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.CustomerId"
+                                   class="icon-btn edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.CustomerId"
+                                   class="icon-btn view">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.CustomerId"
+                                   class="icon-btn delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Müşteri Adı</th>
-            <th>E-posta</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
-                <td>@Html.DisplayFor(modelItem => item.CustomerEmail)</td>
-                <td>
-                    <a class="btn btn-sm d-flex align-items-center me-1"
-                       asp-action="Edit" asp-route-id="@item.CustomerId"
-                       style="background-color: #f4b8da; color: white;">
-                        <i class="bi bi-pencil"></i>
-                    </a>
-                    <a class="btn btn-sm d-flex align-items-center me-1"
-                       asp-action="Details" asp-route-id="@item.CustomerId"
-                       style="background-color: #eea1cd; color: white;">
-                        <i class="bi bi-eye"></i>
-                    </a>
-                    <a class="btn btn-sm d-flex align-items-center"
-                       asp-action="Delete" asp-route-id="@item.CustomerId"
-                       style="background-color: #e68bbe; color: white;">
-                        <i class="bi bi-trash"></i>
-                    </a>
-                </td>
-            </tr>
+<style>
+    /* ===== PAGE ===== */
+    .customers-page {
+        padding-bottom: 2rem;
+    }
+
+    /* ===== HEADER ===== */
+    .page-title {
+        font-weight: 700;
+        background: linear-gradient(90deg, #e68bbe, #eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .page-sub {
+        color: #777;
+        max-width: 640px;
+    }
+
+    /* ===== ACTION BUTTONS ===== */
+    .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 0.9rem;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .action-btn.primary {
+            background: #e68bbe;
         }
-    </tbody>
-</table>
+
+        .action-btn.secondary {
+            background: #eea1cd;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(230,139,190,0.35);
+        }
+
+    /* ===== TABLE SURFACE ===== */
+    .table-surface {
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(6px);
+        border-radius: 1.2rem;
+        border: 1px solid rgba(230,139,190,0.2);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    /* ===== TABLE ===== */
+    .table thead {
+        background: rgba(230,139,190,0.08);
+    }
+
+    .table th {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .table td {
+        color: #444;
+    }
+
+    /* ===== ICON BUTTONS ===== */
+    .icon-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 0.7rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.15s ease;
+    }
+
+        .icon-btn.edit {
+            background: #f4b8da;
+        }
+
+        .icon-btn.view {
+            background: #eea1cd;
+        }
+
+        .icon-btn.delete {
+            background: #e68bbe;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+</style>

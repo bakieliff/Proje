@@ -4,83 +4,204 @@
     ViewData["Title"] = "Teslimatlar";
 }
 
-<h1>Teslimatlar</h1>
+<div class="deliveries-page">
 
-<p>Yeni bir teslimat oluşturmak için öncelikle en az bir müşteri, kargo kalemi ve birim oluşturmanız gerekir.</p>
+    <!-- HEADER -->
+    <div class="page-header mb-4">
+        <h1 class="page-title">Teslimatlar</h1>
+        <p class="page-sub">
+            Yeni bir teslimat oluşturmak için öncelikle en az bir müşteri,
+            kargo kalemi ve birim oluşturmanız gerekir.
+        </p>
+    </div>
 
-<div class="d-flex flex-wrap gap-2 mb-3 justify-content-start">
-    <a class="btn text-white d-flex align-items-center"
-       asp-controller="Customers" asp-action="Index"
-       style="background-color: #f4b8da; padding: 0.5rem 1rem;">
-        <i class="bi bi-people me-2"></i> Yeni müşteri oluştur
-    </a>
-    <a class="btn text-white d-flex align-items-center"
-       asp-controller="Items" asp-action="Index"
-       style="background-color: #f9cee7; padding: 0.5rem 1rem;">
-        <i class="bi bi-box-seam me-2"></i> Yeni kargo kalemi oluştur
-    </a>
-    <a class="btn text-white d-flex align-items-center"
-       asp-controller="Units" asp-action="Index"
-       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-        <i class="bi bi-rulers me-2"></i> Yeni birim oluştur
-    </a>
+    <!-- PRE-REQUISITE ACTIONS -->
+    <div class="d-flex flex-wrap gap-3 mb-3">
+        <a asp-controller="Customers" asp-action="Index" class="action-btn soft">
+            <i class="bi bi-people"></i>
+            <span>Müşteriler</span>
+        </a>
+
+        <a asp-controller="Items" asp-action="Index" class="action-btn soft">
+            <i class="bi bi-box-seam"></i>
+            <span>Kargo Kalemleri</span>
+        </a>
+
+        <a asp-controller="Units" asp-action="Index" class="action-btn soft">
+            <i class="bi bi-rulers"></i>
+            <span>Birimler</span>
+        </a>
+    </div>
+
+    <!-- MAIN ACTIONS -->
+    <div class="d-flex flex-wrap gap-3 mb-4">
+        <a asp-action="Create" class="action-btn primary">
+            <i class="bi bi-plus-circle"></i>
+            <span>Yeni Teslimat</span>
+        </a>
+
+        <a asp-action="ShowSearchForm" class="action-btn secondary">
+            <i class="bi bi-search"></i>
+            <span>Teslimat Ara</span>
+        </a>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-surface">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Müşteri</th>
+                    <th>Ürün</th>
+                    <th>Açıklama</th>
+                    <th>Birim</th>
+                    <th>Miktar</th>
+                    <th>Fiyat</th>
+                    <th>Tarih</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Customer.CustomerEmail</td>
+                        <td>@item.Item.Name</td>
+                        <td>@item.Item.Description</td>
+                        <td>@item.Unit.Unit</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                        <td>@item.Date</td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="icon-btn edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   class="icon-btn view">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.Id"
+                                   class="icon-btn delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="d-flex flex-wrap gap-2 mb-4 justify-content-start">
-    <a class="btn text-white d-flex align-items-center"
-       asp-action="Create"
-       style="background-color: #e68bbe; padding: 0.5rem 1rem;">
-        <i class="bi bi-plus-circle me-2"></i> Yeni teslimat oluştur
-    </a>
-    <a class="btn text-white d-flex align-items-center"
-       asp-action="ShowSearchForm"
-       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-        <i class="bi bi-search me-2"></i> Teslimatları ara
-    </a>
-</div>
+<style>
+    /* ===== PAGE ===== */
+    .deliveries-page {
+        padding-bottom: 2rem;
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Customer)</th>
-            <th>@Html.DisplayNameFor(model => model.Item)</th>
-            <th>@Html.DisplayNameFor(model => model.Item.Description)</th>
-            <th>@Html.DisplayNameFor(model => model.Unit)</th>
-            <th>@Html.DisplayNameFor(model => model.Quantity)</th>
-            <th>@Html.DisplayNameFor(model => model.Price)</th>
-            <th>@Html.DisplayNameFor(model => model.Date)</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Customer.CustomerEmail)</td>
-                <td>@Html.DisplayFor(modelItem => item.Item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Item.Description)</td>
-                <td>@Html.DisplayFor(modelItem => item.Unit.Unit)</td>
-                <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-                <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                <td>@Html.DisplayFor(modelItem => item.Date)</td>
-                <td>
-                    <a class="btn btn-sm d-flex align-items-center me-1"
-                       asp-action="Edit" asp-route-id="@item.Id"
-                       style="background-color: #f4b8da; color: white;">
-                        <i class="bi bi-pencil"></i>
-                    </a>
-                    <a class="btn btn-sm d-flex align-items-center me-1"
-                       asp-action="Details" asp-route-id="@item.Id"
-                       style="background-color: #eea1cd; color: white;">
-                        <i class="bi bi-eye"></i>
-                    </a>
-                    <a class="btn btn-sm d-flex align-items-center"
-                       asp-action="Delete" asp-route-id="@item.Id"
-                       style="background-color: #e68bbe; color: white;">
-                        <i class="bi bi-trash"></i>
-                    </a>
-                </td>
-            </tr>
+    /* ===== HEADER ===== */
+    .page-title {
+        font-weight: 700;
+        background: linear-gradient(90deg, #e68bbe, #eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .page-sub {
+        color: #777;
+        max-width: 720px;
+    }
+
+    /* ===== ACTION BUTTONS ===== */
+    .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 0.9rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        color: white;
+    }
+
+        .action-btn.primary {
+            background: #e68bbe;
         }
-    </tbody>
-</table>
+
+        .action-btn.secondary {
+            background: #eea1cd;
+        }
+
+        .action-btn.soft {
+            background: #f4b8da;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(230,139,190,0.35);
+        }
+
+    /* ===== TABLE SURFACE ===== */
+    .table-surface {
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(6px);
+        border-radius: 1.2rem;
+        border: 1px solid rgba(230,139,190,0.2);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    /* ===== TABLE ===== */
+    .table thead {
+        background: rgba(230,139,190,0.08);
+    }
+
+    .table th {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .table td {
+        color: #444;
+    }
+
+    /* ===== ICON BUTTONS ===== */
+    .icon-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 0.7rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.15s ease;
+    }
+
+        .icon-btn.edit {
+            background: #f4b8da;
+        }
+
+        .icon-btn.view {
+            background: #eea1cd;
+        }
+
+        .icon-btn.delete {
+            background: #e68bbe;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+</style>

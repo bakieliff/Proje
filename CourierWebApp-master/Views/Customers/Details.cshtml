@@ -1,32 +1,73 @@
 ﻿@model CourierWebApp.Models.Customer
 
 @{
-    ViewData["Title"] = "Detaylar";
+    ViewData["Title"] = "Müşteri Detayları";
 }
 
-<h1>Detaylar</h1>
+<div class="details-page">
 
-<div>
-    <h4>Müşteri</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2 fw-bold">Müşteri Adı</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.CustomerName)</dd>
+    <h1 class="page-title">Müşteri Detayları</h1>
 
-        <dt class="col-sm-2 fw-bold">E-posta</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.CustomerEmail)</dd>
-    </dl>
+    <div class="details-surface">
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Müşteri Adı</div>
+            <div class="col-8">@Model.CustomerName</div>
+        </div>
+
+        <div class="row">
+            <div class="col-4 fw-bold">E-posta</div>
+            <div class="col-8">@Model.CustomerEmail</div>
+        </div>
+    </div>
+
+    <div class="mt-3 d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.CustomerId" class="action-btn secondary">
+            <i class="bi bi-pencil"></i>
+            <span>Düzenle</span>
+        </a>
+
+        <a asp-action="Index" class="action-btn primary">
+            <i class="bi bi-arrow-left"></i>
+            <span>Listeye Dön</span>
+        </a>
+    </div>
 </div>
 
-<div class="mt-4 d-flex gap-2 flex-wrap">
-    <a asp-action="Edit" asp-route-id="@Model.CustomerId"
-       class="btn text-white d-flex align-items-center"
-       style="background-color: #f4b8da; padding: 0.5rem 1rem;">
-        <i class="bi bi-pencil me-2"></i> Düzenle
-    </a>
-    <a asp-action="Index"
-       class="btn text-white d-flex align-items-center"
-       style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-        <i class="bi bi-arrow-left me-2"></i> Listeye Dön
-    </a>
-</div>
+<style>
+    .details-page {
+        max-width: 520px;
+    }
+
+    .page-title {
+        font-weight: 700;
+        background: linear-gradient(90deg,#e68bbe,#eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .details-surface {
+        background: rgba(255,255,255,.9);
+        border-radius: 1.2rem;
+        padding: 1.4rem;
+        border: 1px solid rgba(230,139,190,.25);
+        box-shadow: 0 16px 30px rgba(0,0,0,.08);
+    }
+
+    .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .55rem 1.1rem;
+        border-radius: .9rem;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .primary {
+        background: #e68bbe;
+    }
+
+    .secondary {
+        background: #f4b8da;
+    }
+</style>

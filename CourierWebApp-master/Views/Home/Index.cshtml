@@ -3,58 +3,154 @@
     var isAuth = User.Identity.IsAuthenticated;
 }
 
-<div class="text-center">
-    <h1 class="display-4 main-header">DeliverMate Lojistik</h1>
-    <h3>Merhaba, @(isAuth? User.Identity.Name : "misafir")</h3>
-    @if (!isAuth)
-    {
-        <p class="mb-4">Sisteme erişmeden önce giriş yapmanız veya kayıt olmanız gerekir.</p>
-    }
-    else
-    {
-        <p class="mb-4">Teslimatları, müşterileri ve kargo kalemlerini yönetmek için panonuzu keşfedin.</p>
-    }
+<div class="text-center py-4">
 
-    <div class="btns-container d-flex flex-wrap justify-content-center gap-2">
+    <h1 class="display-4 fw-bold mb-3 hero-title">
+        DeliverMate Lojistik
+    </h1>
+
+    <h4 class="mb-3">
+        Merhaba,
+        <span class="fw-semibold text-glow">
+            @(isAuth? User.Identity.Name : "misafir")
+        </span>
+    </h4>
+
+    <p class="text-muted mb-5">
+        @(isAuth
+                ? "Teslimat yönetimini modern ve sezgisel bir arayüzle deneyimleyin."
+                : "Devam etmek için giriş yap veya kayıt ol.")
+    </p>
+
+    <div class="row justify-content-center g-4">
+
         @if (isAuth)
         {
-            <a class="btn text-white d-flex align-items-center"
-               asp-area="" asp-controller="Deliveries" asp-action="Index"
-               style="background-color: #e68bbe; padding: 0.5rem 1rem;">
-                <i class="bi bi-truck me-2"></i> Teslimatlar
-            </a>
-            <a class="btn text-white d-flex align-items-center"
-               asp-area="" asp-controller="Units" asp-action="Index"
-               style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-                <i class="bi bi-rulers me-2"></i> Birimler
-            </a>
-            <a class="btn text-white d-flex align-items-center"
-               asp-area="" asp-controller="Customers" asp-action="Index"
-               style="background-color: #f4b8da; padding: 0.5rem 1rem;">
-                <i class="bi bi-people me-2"></i> Müşteriler
-            </a>
-            <a class="btn text-white d-flex align-items-center"
-               asp-area="" asp-controller="Items" asp-action="Index"
-               style="background-color: #f9cee7; padding: 0.5rem 1rem;">
-                <i class="bi bi-box-seam me-2"></i> Kargo Kalemleri
-            </a>
+            <div class="col-md-3 col-sm-6">
+                <a class="glass-card tilt" asp-controller="Deliveries" asp-action="Index">
+                    <i class="bi bi-truck"></i>
+                    <span>Teslimatlar</span>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a class="glass-card tilt" asp-controller="Customers" asp-action="Index">
+                    <i class="bi bi-people"></i>
+                    <span>Müşteriler</span>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a class="glass-card tilt" asp-controller="Items" asp-action="Index">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Kargo Kalemleri</span>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a class="glass-card tilt" asp-controller="Units" asp-action="Index">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>Birimler</span>
+                </a>
+            </div>
         }
         else
         {
-            <a class="btn text-white d-flex align-items-center"
-               href="/Identity/Account/Login"
-               style="background-color: #f4b8da; padding: 0.5rem 1rem;">
-                <i class="bi bi-box-arrow-in-right me-2"></i> Giriş Yap
-            </a>
-            <a class="btn text-white d-flex align-items-center"
-               href="/Identity/Account/Register"
-               style="background-color: #eea1cd; padding: 0.5rem 1rem;">
-                <i class="bi bi-person-plus me-2"></i> Kayıt Ol
-            </a>
+            <div class="col-md-3 col-sm-6">
+                <a class="glass-card tilt" href="/Identity/Account/Login">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Giriş Yap</span>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a class="glass-card tilt" href="/Identity/Account/Register">
+                    <i class="bi bi-person-plus"></i>
+                    <span>Kayıt Ol</span>
+                </a>
+            </div>
         }
     </div>
 
-    <div class="image-container mt-4">
-        <img class="courier-img" src="courier.svg" alt="Kurye" />
+    <!-- ✅ FIXED IMAGE -->
+    <div class="mt-5">
+        <img src="@Url.Content("~/images/HOME.png")"
+             asp-append-version="true"
+             class="hero-img img-fluid"
+             alt="Home" />
     </div>
 </div>
+
+<style>
+    .hero-title {
+        background: linear-gradient(90deg, #e68bbe, #eea1cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .text-glow {
+        text-shadow: 0 0 8px rgba(230,139,190,0.4);
+    }
+
+    .glass-card {
+        height: 180px;
+        border-radius: 1.4rem;
+        background: rgba(255,255,255,0.65);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(230,139,190,0.25);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        text-decoration: none;
+        color: #333;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .glass-card i {
+            font-size: 2.4rem;
+            color: #e68bbe;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 25px 55px rgba(230,139,190,0.4);
+        }
+
+    .hero-img {
+        max-width: 420px;
+        animation: float 4s ease-in-out infinite;
+        filter: drop-shadow(0 25px 35px rgba(230,139,190,0.35));
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.tilt').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const rotateX = ((y / rect.height) - 0.5) * 10;
+            const rotateY = ((x / rect.width) - 0.5) * -10;
+
+            card.style.transform =
+                `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+</script>

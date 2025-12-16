@@ -4,79 +4,105 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DeliverMate Lojistik</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <!-- Fixed trailing space -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
     <style>
-        /* Custom background & navbar */
+        :root {
+            --pink-50: #fde4f2;
+            --pink-100: #f9cee7;
+            --pink-200: #f4b8da;
+            --pink-300: #eea1cd;
+            --pink-400: #e68bbe;
+        }
+
         body {
-            background-color: #fde4f2; /* very light pink */
+            min-height: 100vh;
+            background: radial-gradient(circle at 15% 15%, var(--pink-100), transparent 45%), radial-gradient(circle at 85% 10%, var(--pink-50), transparent 45%), linear-gradient(180deg, #ffffff, var(--pink-50));
         }
 
+        /* NAVBAR */
         .navbar {
-            background-color: #e68bbe !important; /* darkest pink */
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(230,139,190,0.3);
         }
 
-        .navbar-brand,
-        .navbar-brand img,
-        .nav-link {
-            color: white !important;
-        }
-
-            .navbar-brand:hover,
-            .nav-link:hover {
-                color: #fff !important;
-                opacity: 0.9;
+            .navbar-brand,
+            .nav-link,
+            .navbar .bi {
+                color: var(--pink-400) !important;
+                font-weight: 500;
             }
 
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        /* Animated underline */
+        .nav-link {
+            position: relative;
         }
-        /* Footer style adjustment */
+
+            .nav-link::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 4px;
+                width: 0%;
+                height: 2px;
+                background: linear-gradient(90deg, var(--pink-300), var(--pink-400));
+                transition: width 0.3s ease;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+            }
+
+        /* GLOBAL GLASS MAIN */
+        main {
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(18px);
+            border-radius: 2rem;
+            padding: 3rem 2rem;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+        }
+
         footer {
-            background-color: #fde4f2;
+            background: transparent;
         }
+
+            footer a {
+                color: var(--pink-400);
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
     </style>
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm mb-4">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" alt="DeliverMate Lojistik" height="32" class="d-inline-block align-top" />
+                <a class="navbar-brand d-flex align-items-center gap-2"
+                   asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" height="32" alt="DeliverMate" />
+                    <span>DeliverMate</span>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Gezinmeyi aç/kapat">
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Deliveries" asp-action="Index">Teslimatlar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Deliveries" asp-action="ShowSearchForm">Teslimat Ara</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">Müşteriler</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Items" asp-action="Index">Kargo Kalemleri</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Units" asp-action="Index">Birimler</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">Hakkında</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-1"></i>Ana Sayfa
+                            </a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -85,28 +111,22 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main class="container">
+        @RenderBody()
+    </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; <span class="span-year-footer"></span> -
-            <a target="_blank" href="https://github.com/stekatag">Stefan Gogov</a> -
-            <a asp-area="" asp-controller="Home" asp-action="About">Proje Hakkında</a>
+    <footer class="text-muted py-3 mt-4">
+        <div class="container d-flex gap-2 align-items-center">
+            <i class="bi bi-box-seam"></i>
+            <span>&copy; <span class="span-year-footer"></span> DeliverMate</span>
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-
     <script>
-        // Auto-fill current year in footer
-        document.querySelector('.span-year-footer')?.textContent = new Date().getFullYear();
+        document.querySelector('.span-year-footer').textContent = new Date().getFullYear();
     </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
